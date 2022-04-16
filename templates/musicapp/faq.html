@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% block body %}
+
+
+  <section class="page-section pt-4 pb-4 mb-4 bg-light" id="services">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Why 24/7 Music.</h2>
+            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-4">
+                <span class="fa-stack fa-4x">
+                  <img src="{% static 'musicapp/images/play-button.png' %}" class="card-img-top" alt="card" style="width: 100px;">
+                </span>
+                <h4 class="my-3">Play you faviorites.</h4>
+                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+            </div>
+            <div class="col-md-4">
+                <span class="fa-stack fa-4x">
+                  <img src="{% static 'musicapp/images/social-media.png' %}" class="card-img-top" alt="card" style="width: 100px;">
+                </span>
+                <h4 class="my-3">Post you thoughts.</h4>
+                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+            </div>
+            <div class="col-md-4">
+                <span class="fa-stack fa-4x">
+                  <img src="{% static 'musicapp/images/headphone.png' %}" class="card-img-top" alt="card" style="width: 100px;">
+                </span>
+                <h4 class="my-3">Listen wherever whenever.</h4>
+                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container py-3">
+    <div class="row">
+        <div class="col-10 mx-auto">
+            <div class="accordion" id="faqExample">
+                <div class="card">
+                    <div class="card-header p-2" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                              Q: How does this work?
+                            </button>
+                          </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#faqExample">
+                        <div class="card-body">
+                            <b>Answer:</b> It works using the Bootstrap 4 collapse component with cards to make a vertical accordion that expands and collapses as questions are toggled.
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header p-2" id="headingTwo">
+                        <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                          Q: What is Bootstrap 4?
+                        </button>
+                      </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqExample">
+                        <div class="card-body">
+                            Bootstrap is the most popular CSS framework in the world. The latest version released in 2018 is Bootstrap 4. Bootstrap can be used to quickly build responsive websites.
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header p-2" id="headingThree">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                              Q. What is another question?
+                            </button>
+                          </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqExample">
+                        <div class="card-body">
+                            The answer to the question can go here.
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header p-2" id="headingThree">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                              Q. What is the next question?
+                            </button>
+                          </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqExample">
+                        <div class="card-body">
+                            The answer to this question can go here. This FAQ example can contain all the Q/A that is needed.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--/row-->
+</div>
+
+  <!-- <h1 class="text-center m-3 mb-5">Got Questions?</h1>
+  <div class="container-sm mb-lg-5">
+      <div class="accordion" id="accordion">
+          <div class="accordion-item">
+              <h2 class="accordion-header text-dark bg-light" id="one">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-one" aria-expanded="true" aria-controls="collapse-one">
+              Question 1
+              </button>
+              </h2>
+              <div id="collapse-one" class="accordion-collapse collapse show" aria-labelledby="one" data-bs-parent="#accordion">
+                  <div class="accordion-body">
+                      <p>............24/7 Music........</p>
+                  </div>
+              </div>
+          </div>
+          <div class="accordion-item">
+              <h2 class="accordion-header" id="two">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-two" aria-expanded="false" aria-controls="collapse-two">
+              Question 2
+              </button>
+              </h2>
+              <div id="collapse-two" class="accordion-collapse collapse" aria-labelledby="two" data-bs-parent="#accordion">
+                  <div class="accordion-body">
+                      <p>............24/7 Music........</p>
+                  </div>
+              </div>
+          </div>
+          <div class="accordion-item">
+              <h2 class="accordion-header" id="three">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-three" aria-expanded="false" aria-controls="collapse-three">
+              question 3
+              </button>
+              </h2>
+              <div id="collapse-three" class="accordion-collapse collapse" aria-labelledby="three" data-bs-parent="#accordion">
+                  <div class="accordion-body">
+                      <p>............24/7 Music........</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div> -->
+
+  {% endblock body %}

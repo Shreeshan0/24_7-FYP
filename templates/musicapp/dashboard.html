@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<h1 style="font-size: 20px; text-align: center;">Welcome to your Dashboard {{ request.user.username }} !!!!!! </h1>
+
+<br>
+<table class="table table-hover table-secondary">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Song Name</th>
+      <th scope="col">Album</th>
+      <th scope="col">Singer</th>
+      <th scope="col">Song</th>
+      <th scope="col">Delete</th>
+
+    </tr>
+  </thead>
+  
+{% endblock body %}
+
+
+
+
+

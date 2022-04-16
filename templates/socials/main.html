@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<div class="container">
+    <div class="row activity">
+        <div class="col-md-6">
+            <!-- left column -->
+            {% for post in posts %}
+            
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <img src="{{ post.owner.image.url }}" class="user-profile">
+                        <!-- <div class="pull-right text-right">
+                            <i class="fa fa-calendar"></i><br> {{ post.date_posted }}
+                        </div> -->
+                        <div><strong>{{ post.owner }}</strong></div>
+                        <div class="small">{{ post.date_posted }}</div>
+                    </div>
+                    <div class="panel-body">
+                        <p>{{ post.detail }}</p>
+                        <div class="video-container">
+                            <a href="{% url 'postDetail' post.pk %}">
+                                <image src="{{ post.image.url }}" width="524" frameborder="0"></image>
+                            </a>
+                        </div>
+                        
+                        <div class="actions">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-link"><i class="fa fa-thumbs-o-up"></i> Like</button>
+                                <button type="button" class="btn btn-link"><i class="fa fa-share"></i> Share</button>
+                            </div>
+                            <div class="pull-right"><strong>1.789</strong> Likes</div>      
+                        </div>  
+                        
+                    
+                    </div>
+                    <div class="panel-footer">
+                        <input type="email" class="form-control" placeholder="Write a comment...">
+                    </div>
+                </div>
+            {% endfor %}
+                
+        </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock body %}
