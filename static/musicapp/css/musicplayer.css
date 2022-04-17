@@ -75,3 +75,14 @@
     }
   }
   
+
+  .socials i {
+    margin-right: 14px;
+    font-size: 17px;
+    color: #5a5757;
+    cursor: pointer
+}
+.feed-image img {
+  width: 100%;
+  height: auto
+}

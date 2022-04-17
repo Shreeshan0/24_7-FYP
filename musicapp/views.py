@@ -60,6 +60,11 @@ def index(request):
     sliced_ids = [each['id'] for each in songs_classic][:5]
     indexpage_classic_songs = Song.objects.filter(id__in=sliced_ids)
 
+    # Display Pop Songs
+    songs_pop = list(Song.objects.filter(genre='Pop').values('id'))
+    sliced_ids = [each['id'] for each in songs_pop][:5]
+    indexpage_pop_songs = Song.objects.filter(id__in=sliced_ids)
+
     if len(request.GET) > 0:
         search_query = request.GET.get('q')
         filtered_songs = songs.filter(Q(name__icontains=search_query)).distinct()
@@ -71,6 +76,7 @@ def index(request):
         'recent_songs': recent_songs,
         'hiphop_songs':indexpage_hiphop_songs,
         'classic_songs':indexpage_classic_songs,
+        'pop_songs':indexpage_pop_songs,
         'last_played':last_played_song,
         'first_time': first_time,
         'query_search':False,
@@ -122,6 +128,28 @@ def classic_songs(request):
 
     context = {'classic_songs':classic_songs,'last_played':last_played_song}
     return render(request, 'musicapp/classic_songs.html',context=context)
+
+def pop_songs(request):
+
+    pop_songs = Song.objects.filter(genre='Pop')
+
+    #Last played song
+    last_played_list = list(Recent.objects.values('song_id').order_by('-id'))
+    if last_played_list:
+        last_played_id = last_played_list[0]['song_id']
+        last_played_song = Song.objects.get(id=last_played_id)
+    else:
+        last_played_song = Song.objects.get(id=7)
+
+    query = request.GET.get('q')
+
+    if query:
+        pop_songs = Song.objects.filter(Q(name__icontains=query)).distinct()
+        context = {'pop_songs': pop_songs}
+        return render(request, 'musicapp/pop_songs.html', context)
+
+    context = {'pop_songs':pop_songs,'last_played':last_played_song}
+    return render(request, 'musicapp/pop_songs.html',context=context)
 
 def faq(request):
     return render(request, 'musicapp/faq.html')
@@ -342,27 +370,10 @@ def favourite(request):
     return render(request, 'musicapp/favourite.html', context=context)
 
 
-def main(request):
-     profile = Profile.objects.get(user=request.user)
-     posts = []
-     vr = None
-     # self posts
-     my_posts = profile.user_posts()
-     posts.append(my_posts)
-     # sort
-     if len(posts)>0:
-         vr = sorted(chain(*posts), reverse=True, key=lambda obj: obj.date_posted)
-     return render(request,'socials/main.html',{'profile':profile,'posts':vr})
-
 # def main(request):
 #      profile = Profile.objects.get(user=request.user)
-#      all = User.profile.all()
 #      posts = []
 #      vr = None
-#      for u in all:
-#         a = Profile.objects.get(user=u)
-#         a_posts = a.posts_set.all()
-#         posts.append(a_posts)
 #      # self posts
 #      my_posts = profile.user_posts()
 #      posts.append(my_posts)
@@ -370,6 +381,14 @@ def main(request):
 #      if len(posts)>0:
 #          vr = sorted(chain(*posts), reverse=True, key=lambda obj: obj.date_posted)
 #      return render(request,'socials/main.html',{'profile':profile,'posts':vr})
+
+def main(request):
+    context = {
+        'posts': Post.objects.all()
+    }
+    return render(request, 'socials/main.html', context)
+
+
 
 class PostListView(ListView):
     model = Post

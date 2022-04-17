@@ -12,6 +12,7 @@ class Song(models.Model):
     Genre_Choice = (
               ('Hiphop', 'Hiphop'),
               ('Classic', 'Classic'),
+              ('Pop', 'Pop'),
           )
     
     name = models.CharField(max_length=200)

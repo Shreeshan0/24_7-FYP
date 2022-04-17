@@ -10,3 +10,5 @@ admin.site.register(Favourite)
 admin.site.register(Recent)
 admin.site.register(Post)
 
+
+
