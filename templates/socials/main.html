@@ -50,6 +50,7 @@
                                 <div class="feed-icon px-2"><i class="fa fa-ellipsis-v text-black-50"></i></div>
                             </div>
                         </div>
+                        <p style="padding: 7px 0 0 20px;">{{ post.detail }}</p>
                         <a href="{% url 'postDetail' post.pk %}">
                         <div class="feed-image p-2 px-3"><img class="img-fluid img-responsive" src="{{ post.image.url }}"></div>
                         </a>

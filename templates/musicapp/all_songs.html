@@ -10,14 +10,15 @@
       <div class="form-group">
         <div class="input-group">
           <div class="input-group">
+            
             <input type="text" class="form-control input-lg" style="border-radius: 5px;"
             name="q" value="{{ request.GET.q }}" placeholder= "Search Songs "/>
-
-            <select name="genres" class="custom-select mx-1" style="border-radius: 5px;">
-              <option selected="selected" disabled>Genres</option>
+            <select name="genres" class="custom-select mx-1" id="Genre-filter" style="border-radius: 5px;">
+              <option selected="selected" disabled>Genre</option>
+              
               {% if all_genres %}
                   {% for genre in all_genres %}
-                      <option value={{genre}}>{{genre}}</option>
+                    <option id="mouse-filter" value={{genre}}>{{genre}}</option>
                   {% endfor %}
               {% endif %}
             </select>
@@ -51,7 +52,8 @@
   <hr>
   {% endif %}
   <!-- Song list -->
-  <div class="row" style="margin-right: 65px;margin-left:-15px;">
+  <div class="row" id="unique" style="margin-right: 65px;margin-left:-15px;">
+
     {% if songs %}
     {% for song in songs %}
     <div class="col-sm-2 col-md-2" style="padding-bottom: 15px;">

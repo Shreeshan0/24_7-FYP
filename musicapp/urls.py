@@ -40,6 +40,9 @@ urlpatterns = [
     path('post_upload/', views.PostUpload.as_view(), name = 'postUpload'),
     path('post/<int:pk>/', views.PostDetail.as_view(), name = "postDetail"),
 
+    #search filter
+    path('filter/', views.filter, name='filter'),
+
 
     
 

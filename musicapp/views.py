@@ -8,9 +8,12 @@ from django.contrib.auth.decorators import login_required
 from .forms import AudioForm
 from django.views.generic import ListView, CreateView, DetailView
 from django.shortcuts import render
-from .models import Post
+from .models import Post,Song
 from itertools import chain
 from django.contrib.auth import get_user_model
+from django.template.loader import render_to_string
+from django.http import JsonResponse
+
 
 # Create your views here.
 def index(request):
@@ -193,6 +196,7 @@ def all_songs(request):
     songs = Song.objects.all()
     last_played_song= None
     first_time = False
+    # prod = Song.objects.filter(genre=genre)
     #Last played song
     if not request.user.is_anonymous:
         last_played_list = list(Recent.objects.filter(user=request.user).values('song_id').order_by('-id'))
@@ -406,3 +410,15 @@ class PostUpload(CreateView):
     def form_valid(self,form):
         form.instance.owner = self.request.user.profile
         return super().form_valid(form)
+
+
+def filter(request):
+
+    aa = request.GET['x']
+    print(aa)
+    uu = Song.objects.filter(genre=aa)
+    t = render_to_string('ajax/all_songs.html',
+        {
+            'uu':uu,
+        })
+    return JsonResponse({'data':t})
