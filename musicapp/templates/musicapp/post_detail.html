@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block body %}
+
+
+<div class="container mt-4 mb-5">
+    <div class="d-flex justify-content-center row">
+        <div class="col-md-8">
+            <div class="feed p-2">
+                <div class="bg-white border mt-2">
+                    <div>
+                        <div class="d-flex flex-row justify-content-between align-items-center p-2 border-bottom">
+                            <div class="d-flex flex-row align-items-center feed-text px-2"><img class="rounded-circle" src="{{ post.owner.image.url }}"  width="45">
+                                <div class="d-flex flex-column flex-wrap ml-2"><span class="font-weight-bold">{{ post.owner }}</span><span class="text-black-50 time">{{ post.date_posted }}</span></div>
+                            </div>
+                            {% if post.owner == request.user.profile %}
+                    
+                            <div class="dropdown">
+                              <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Edit
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{% url 'postUpdate' post.pk %}">Update</a>
+                                <a class="dropdown-item" href="{% url 'postDelete' post.pk %}">Delete</a>
+                                
+                              </div>
+                            </div>
+                          {% endif %}
+                            
+                        </div>
+                    </div>
+                  
+                    <div class="feed-image p-2 px-3"><img class="img-fluid img-responsive" src="{{ post.image.url }}"></div>
+                    <div id="like-section">
+                        {% include 'musicapp/like_section.html' %}
+                    </div>
+
+    
+                    <div class="d-flex justify-content-end socials p-2 py-3"><i class="fa fa-thumbs-up"></i><i class="fa fa-comments-o"></i><i class="fa fa-share"></i></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
+
+
+
+  <!-- <div class="container">
+    <div class="row activity">
+        <div class="col-md-6">
+           
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <img src="{{ post.owner.image.url }}" class="user-profile">
+                    <div class="pull-right text-right">
+                     
+                        <button type="button" class="btn btn-light"><span class="bi bi-three-dots-vertical"></span></button>
+                        {% if post.owner == request.user.profile %}
+                        <div class="menu-nav">
+                           
+                            <div class="dropdown-container" tabindex="-1">
+                              <div class="three-dots"></div>
+                              <div class="dropdown">
+                                <a href="#"><div>Edit</div></a>
+                                <a href="#"><div>Delete</div></a>
+                              </div>
+                            </div>
+                          </div>
+                          {% endif %}
+                    </div>
+                    <div><strong>{{ post.owner}}</strong></div>
+                    <div class="small"><i class="fa fa-map-marker"></i>{{ post.date_posted }}</div>
+                </div>
+                <div class="panel-body">
+                    <div class="video-container">
+                        <image src="{{ post.image.url }}" width="524" frameborder="0"></image>
+                    </div>
+                    
+                    <div class="actions">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-link"><i class="fa fa-thumbs-o-up"></i> Like</button>
+                            <button type="button" class="btn btn-link"><i class="fa fa-share"></i> Share</button>
+                        </div>
+                            
+                    </div>  
+                    
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+</div> -->

@@ -24,10 +24,6 @@
 
     <script src="{% static 'musicapp/js/filter.js' %}"></script>
     <style>
-        .navbar
-        {
-            font-family: Arial;
-        }
         .hovereffect {
     width: 100%;
     height: 100%;
@@ -141,7 +137,7 @@
     
 </head>
 <body class="bg-light">
-    <nav class="navbar navbar-expand-md" style="background-color: 	#202020;">
+    <!-- <nav class="navbar navbar-expand-md" style="background-color: 	#202020;">
         <div class="container">
             <a href="{% url 'index' %}" class="navbar-brand">
             <img src="{% static 'musicapp/images/logo.png' %}" style="width: 38px; " alt=""></a>
@@ -181,7 +177,102 @@
             </div>
         </div>
 
-    </nav>
+    </nav> -->
+
+
+ 
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+ 
+  <div class="container-fluid">
+  
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-mdb-toggle="collapse"
+      data-mdb-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+
+ 
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Navbar brand -->
+      <a class="navbar-brand mt-2 mt-lg-0" href="#">
+        <img
+          src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
+          height="15"
+          alt="MDB Logo"
+          loading="lazy"
+        />
+      </a>
+     
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" style="font-size: 18px;" href="{% url 'index' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="font-size: 18px;"href="{% url 'all_songs' %}">All Songs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="font-size: 18px;"href="{% url 'faq' %}">FAQs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="font-size: 18px;"href="{% url 'main' %}">Socials</a>
+        </li>
+      </ul>
+      {% if request.user.is_active %}
+      <div class="btn-group">
+       
+          <a href="{% url 'mymusic' %}" class="nav-link" style="text-decoration: none;">MY MUSIC</a>
+          <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+              <a class="dropdown-item" href="{% url 'playlist' %}">Playlists</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'favourite' %}">Favourite Songs</a>
+              <a class="dropdown-item" href="{% url 'add_music' %}">Add Song</a>
+              <a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a>
+              </div>
+      </div>
+     
+      {% endif %}
+
+    </div>
+    <div class="navbar-text">
+      <div class="collapse navbar-collapse" id="navbar">
+        {% if request.user.is_active %}
+        
+        <div class="collapse navbar-collapse" id="navbar-list-4">
+          <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg" width="35" height="35" class="rounded-circle">
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" style="color: black !important;" href="#">Dashboard</a>
+                <a class="dropdown-item" style="color: black !important;" href="{% url 'profile' %}">Edit Profile</a>
+                <a class="dropdown-item" style="color: black !important;" href="{% url 'logout' %}">Log Out</a>
+              </div>
+            </li>   
+          </ul>
+          <p class="text-white">sup!, {{ request.user.username }}</p>
+        </div>
+        {% else %}
+        <a href="{% url 'login' %}" class="btn btn-dark mt-1 mx-1"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a>
+        <a href="{% url 'signup' %}" class="btn btn-dark mt-1 mx-1"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a> 
+        {% endif %}            
+        </div>
+    </div>
+    </div>
+
+  </div>
+ 
+</nav>
+
 
     {% block body %}
     {% endblock body %}

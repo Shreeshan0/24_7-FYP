@@ -21,6 +21,7 @@ class Song(models.Model):
     song_img = models.FileField()
     year = models.IntegerField()
     singer = models.CharField(max_length=200)
+    # author = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
     song_file = models.FileField()
 
     def __str__(self):
@@ -50,6 +51,7 @@ class Post(models.Model):
     image = models.ImageField(upload_to='posts')
     detail = models.TextField(max_length=300)
     date_posted = models.DateTimeField(default=timezone.now)
+    likes = models.ManyToManyField(User, blank=True, related_name='likes')
 
     def str(self):
         return self.detail

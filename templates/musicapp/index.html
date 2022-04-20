@@ -222,8 +222,8 @@
           {% if first_time %}
             <audio controls=""  name="media" style="margin-left: 20px;margin-bottom: 10px;width: 95%;height:30px"><source src="{{last_played.song_file.url}}" type="audio/mpeg" ></audio>
               {% else %}
-              <audio controls="" autoplay name="media" style="margin-left: 20px;margin-bottom: 10px;width: 95%;height:30px"><source src="{{last_played.song_file.url}}" type="audio/mpeg" ></audio>
-                {% endif %}
+              <audio controls="" name="media" style="margin-left: 20px;margin-bottom: 10px;width: 95%;height:30px"><source src="{{last_played.song_file.url}}" type="audio/mpeg" ></audio>
+              {% endif %}
           </div>
       </div>
     </div>

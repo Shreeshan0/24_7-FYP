@@ -6,13 +6,15 @@ from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import AudioForm
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render
 from .models import Post,Song
 from itertools import chain
 from django.contrib.auth import get_user_model
 from django.template.loader import render_to_string
 from django.http import JsonResponse
+
 
 
 # Create your views here.
@@ -39,11 +41,11 @@ def index(request):
             last_played_song = Song.objects.get(id=last_played_id)
         else:
             first_time = True
-            last_played_song = Song.objects.get(id=7)
+            last_played_song = Song.objects.get(id=1)
 
     else:
         first_time = True
-        last_played_song = Song.objects.get(id=7)
+        last_played_song = Song.objects.get(id=1)
 
     #Display all songs
     songs = Song.objects.all()
@@ -97,7 +99,7 @@ def hiphop_songs(request):
         last_played_id = last_played_list[0]['song_id']
         last_played_song = Song.objects.get(id=last_played_id)
     else:
-        last_played_song = Song.objects.get(id=7)
+        last_played_song = Song.objects.get(id=1)
 
     query = request.GET.get('q')
 
@@ -120,7 +122,7 @@ def classic_songs(request):
         last_played_id = last_played_list[0]['song_id']
         last_played_song = Song.objects.get(id=last_played_id)
     else:
-        last_played_song = Song.objects.get(id=7)
+        last_played_song = Song.objects.get(id=1)
 
     query = request.GET.get('q')
 
@@ -142,7 +144,7 @@ def pop_songs(request):
         last_played_id = last_played_list[0]['song_id']
         last_played_song = Song.objects.get(id=last_played_id)
     else:
-        last_played_song = Song.objects.get(id=7)
+        last_played_song = Song.objects.get(id=1)
 
     query = request.GET.get('q')
 
@@ -205,7 +207,7 @@ def all_songs(request):
             last_played_song = Song.objects.get(id=last_played_id)
     else:
         first_time = True
-        last_played_song = Song.objects.get(id=7)
+        last_played_song = Song.objects.get(id=1)
 
     
     # apply search filters
@@ -214,6 +216,7 @@ def all_songs(request):
     all_singers = sorted(list(set([s.strip() for singer in s_list for s in singer])))
     qs_genres = Song.objects.values_list('genre').all()
     all_genres = sorted(list(set([l.strip() for lang in qs_genres for l in lang])))
+
     
     if len(request.GET) > 0:
         search_query = request.GET.get('q')
@@ -248,7 +251,7 @@ def recent(request):
         last_played_id = last_played_list[0]['song_id']
         last_played_song = Song.objects.get(id=last_played_id)
     else:
-        last_played_song = Song.objects.get(id=7)
+        last_played_song = Song.objects.get(id=1)
 
     #Display recent songs
     recent = list(Recent.objects.filter(user=request.user).values('song_id').order_by('-id'))
@@ -288,7 +291,7 @@ def detail(request, song_id):
         last_played_id = last_played_list[0]['song_id']
         last_played_song = Song.objects.get(id=last_played_id)
     else:
-        last_played_song = Song.objects.get(id=7)
+        last_played_song = Song.objects.get(id=1)
 
 
     playlists = Playlist.objects.filter(user=request.user).values('playlist_name').distinct
@@ -321,13 +324,6 @@ def detail(request, song_id):
     return render(request, 'musicapp/detail.html', context=context)
 
 
-def dashboard(request):
-    return render(request, 'musicapp/dashboard.html')
-
-def mymusic(request):
-    return render(request, 'musicapp/mymusic.html')
-
-
 def playlist(request):
     playlists = Playlist.objects.filter(user=request.user).values('playlist_name').distinct
     context = {'playlists': playlists}
@@ -348,16 +344,31 @@ def playlist_songs(request, playlist_name):
     return render(request, 'musicapp/playlist_songs.html', context=context)
 
 
+def dashboard(request):
+    return render(request, 'musicapp/dashboard.html')
+
+def mymusic(request):
+    return render(request, 'musicapp/mymusic.html')
+
 
 def add_music(request):
     if request.method == 'POST':
         form = AudioForm(request.POST, request.FILES or None)
         if form.is_valid():
+            # author = request.user
             form.save()
+            # a = Song(form=form, author=author)
+            # a.save()
             
     else:
         form = AudioForm()
     return render(request, 'musicapp/music_add.html', {'form':form})
+
+def update_music(request, pk):
+    song = song.objects.get(id=pk)
+    form = AudioForm(instance=song)
+    return render(request, 'musicapp/music_add.html', {'form':form})
+
 
 
 
@@ -374,17 +385,6 @@ def favourite(request):
     return render(request, 'musicapp/favourite.html', context=context)
 
 
-# def main(request):
-#      profile = Profile.objects.get(user=request.user)
-#      posts = []
-#      vr = None
-#      # self posts
-#      my_posts = profile.user_posts()
-#      posts.append(my_posts)
-#      # sort
-#      if len(posts)>0:
-#          vr = sorted(chain(*posts), reverse=True, key=lambda obj: obj.date_posted)
-#      return render(request,'socials/main.html',{'profile':profile,'posts':vr})
 
 def main(request):
     context = {
@@ -402,8 +402,9 @@ class PostListView(ListView):
 
 class PostDetail(DetailView):
     model=Post
+    # template_name = 'musicapp/post_detail.html' 
 
-class PostUpload(CreateView):
+class PostUpload(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['image','detail']
 
@@ -411,6 +412,48 @@ class PostUpload(CreateView):
         form.instance.owner = self.request.user.profile
         return super().form_valid(form)
 
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Post
+    fields = ['image','detail']
+
+    def form_valid(self,form):
+        form.instance.owner = self.request.user.profile
+        return super().form_valid(form)
+    
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user.profile == post.owner:
+            return True
+        return False
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Post
+    success_url = 'socials/main.html'
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user.profile == post.owner:
+            return True
+        return False
+
+def likes(request):
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    is_liked = False
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+        is_liked = False
+    else:
+        post.likes.add(request.user)
+        is_liked = True
+    context ={
+        'post': post,
+        'is_liked': is_liked,
+        'total_likes': post.likes.count(),
+    }
+    if request.is_ajax():
+        html = render_to_string('like_section.html', context, request=request)
+        return JsonResponse({'form': html})
+    
+    
 
 def filter(request):
 

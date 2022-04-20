@@ -3,6 +3,7 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
+from musicapp.views import likes
 
 # Add URLConf
 urlpatterns = [
@@ -21,6 +22,8 @@ urlpatterns = [
     path('play_song/<int:song_id>/', views.play_song_index, name='play_song_index'),
     path('play_recent_song/<int:song_id>/', views.play_recent_song, name='play_recent_song'),
     path('add_music/', views.add_music, name='add_music'),
+    path('update_music/<int:pk>/', views.update_music, name='update_music'),
+
     path('faq/', views.faq, name='faq'),
     path('dashboard/', views.dashboard, name='dashboard'),
     #password Change
@@ -35,16 +38,15 @@ urlpatterns = [
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
     #socials
-    
     path('main/', views.main, name='main'),
     path('post_upload/', views.PostUpload.as_view(), name = 'postUpload'),
     path('post/<int:pk>/', views.PostDetail.as_view(), name = "postDetail"),
+    path('post/<int:pk>/update', views.PostUpdateView.as_view(), name = "postUpdate"),
+    path('post/<int:pk>/delete', views.PostDeleteView.as_view(), name = "postDelete"),
+    path('likes/', likes, name='likes'),
 
     #search filter
     path('filter/', views.filter, name='filter'),
-
-
-    
 
 
 ]
