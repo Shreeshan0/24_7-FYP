@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class AudioForm(forms.ModelForm):
     class Meta:
         model = Song
-        fields =  ['name', 'album', 'genre', 'song_img', 'year', 'singer', 'song_file','author']
+        fields =  ['name', 'album', 'genre', 'song_img', 'year', 'singer', 'song_file']
 
 
 

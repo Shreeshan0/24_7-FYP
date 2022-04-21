@@ -344,39 +344,49 @@ def playlist_songs(request, playlist_name):
     return render(request, 'musicapp/playlist_songs.html', context=context)
 
 
-# def dashboard(request):
-#     return render(request, 'musicapp/dashboard.html')
-
 def dashboard(request):
-     profile = Profile.objects.get(user=request.user)
-    #  all= get_user_model().objects.all()
-     songs = []
-     vr = None
-    #  for u in all:
-    #     a = Profile.objects.get(user=u)
-    #     a_posts = a.posts_set.all()
-    #     songs.append(a_posts)
-     # self posts
-     my_songs = profile.user_songs()
-     songs.append(my_songs)
-     # sort
-     if len(songs)>0:
-         vr = sorted(chain(*songs), reverse=True, key=lambda obj: obj.date_posted)
-     return render(request,'musicapp/dashboard.html',{'profile':profile,'songs':vr})
+    if request.user.is_authenticated:
+        user = request.user
+        usersong = Song.objects.filter(user=user)
+        print("sjhreshan"+str(usersong))
+        # for a in usersong:
+        #     name = a.name
+        #     genre = a.genre
+        #     album = a.album
+        #     singer = a.singer
+        #     songfile = a.song_file
+        #     print(name,genre,album,singer,songfile)
+        context={
+            'name':usersong
+        }
+    return render(request, 'musicapp/dashboard.html',context)
+
+
 
 def mymusic(request):
     return render(request, 'musicapp/mymusic.html')
 
 
 def add_music(request):
+    
     if request.method == 'POST':
         form = AudioForm(request.POST, request.FILES or None)
+
         if form.is_valid():
-            # saauthor = request.user
-            form.save()
-            # a = Song(form=form, author=author)
-            # a.save()
-            
+            usr = request.user
+            name = form.cleaned_data['name']
+            name1 = form.cleaned_data['album']
+            name2 = form.cleaned_data['genre']
+            name3 = form.cleaned_data['song_img']
+            name4 = form.cleaned_data['year']
+            name5 = form.cleaned_data['singer']
+            name6 = form.cleaned_data['song_file']
+            Song(user=usr,album=name1,genre=name2,song_img=name3,name=name,year=name4,singer=name5,song_file=name6).save()    
+        # if form.is_valid():
+        #     # saauthor = request.user
+        #     form.save()
+        #     # a = Song(form=form, author=author)
+        #     # a.save()
     else:
         form = AudioForm()
     return render(request, 'musicapp/music_add.html', {'form':form})
@@ -385,8 +395,6 @@ def update_music(request, pk):
     song = song.objects.get(id=pk)
     form = AudioForm(instance=song)
     return render(request, 'musicapp/music_add.html', {'form':form})
-
-
 
 
 def favourite(request):

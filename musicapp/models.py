@@ -21,8 +21,11 @@ class Song(models.Model):
     song_img = models.FileField()
     year = models.IntegerField()
     singer = models.CharField(max_length=200)
-    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     song_file = models.FileField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE,blank=True
+    
+    
+    )
 
     def __str__(self):
         return self.name
@@ -58,3 +61,4 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('postDetail', kwargs={'pk': self.pk})
+
