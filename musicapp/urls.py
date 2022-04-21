@@ -23,6 +23,7 @@ urlpatterns = [
     path('play_recent_song/<int:song_id>/', views.play_recent_song, name='play_recent_song'),
     path('add_music/', views.add_music, name='add_music'),
     path('update_music/<int:pk>/', views.update_music, name='update_music'),
+    path('delete_music/<int:pk>/', views.delete_music, name='delete_music'),
 
     path('faq/', views.faq, name='faq'),
     path('dashboard/', views.dashboard, name='dashboard'),

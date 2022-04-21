@@ -349,13 +349,6 @@ def dashboard(request):
         user = request.user
         usersong = Song.objects.filter(user=user)
         print("sjhreshan"+str(usersong))
-        # for a in usersong:
-        #     name = a.name
-        #     genre = a.genre
-        #     album = a.album
-        #     singer = a.singer
-        #     songfile = a.song_file
-        #     print(name,genre,album,singer,songfile)
         context={
             'name':usersong
         }
@@ -382,19 +375,26 @@ def add_music(request):
             name5 = form.cleaned_data['singer']
             name6 = form.cleaned_data['song_file']
             Song(user=usr,album=name1,genre=name2,song_img=name3,name=name,year=name4,singer=name5,song_file=name6).save()    
-        # if form.is_valid():
-        #     # saauthor = request.user
-        #     form.save()
-        #     # a = Song(form=form, author=author)
-        #     # a.save()
     else:
         form = AudioForm()
     return render(request, 'musicapp/music_add.html', {'form':form})
 
 def update_music(request, pk):
-    song = song.objects.get(id=pk)
+    song = Song.objects.get(id=pk)
     form = AudioForm(instance=song)
+    if request.method == 'POST':
+        form = AudioForm(request.POST, instance=song)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
     return render(request, 'musicapp/music_add.html', {'form':form})
+
+def delete_music(request, pk):
+    song = Song.objects.get(id=pk)
+    song.delete()
+    return redirect('dashboard')
+
+
 
 
 def favourite(request):

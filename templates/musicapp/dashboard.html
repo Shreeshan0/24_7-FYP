@@ -33,10 +33,15 @@
         </audio>
       </td>
       <td>
-        <form method="post">
+        <form action="{% url 'update_music' song.id %}" method="post">
+          {% csrf_token %}
+          <input class="btn btn-primary" type="submit" value="update" name={{song.id}}>
+        </form>
+        <form action="{% url 'delete_music' song.id %}" method="post">
           {% csrf_token %}
           <input class="btn btn-primary" type="submit" value="Remove" name={{song.id}}>
         </form>
+        
       </td>
     </tr>
     {% endfor %}
