@@ -1,5 +1,8 @@
 
- 
+.nav-item{
+  color: #F9F9F9;
+}
+
   body .player {
     z-index: 10;
     background: #F9F9F9;

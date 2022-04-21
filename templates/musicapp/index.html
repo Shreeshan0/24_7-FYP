@@ -170,6 +170,38 @@
       <a href="{% url 'classic_songs' %}" class="btn btn-secondary float-right" style="height: 135px;"><center style="margin-top: 45px;">View all <i class="fa fa-arrow-right" aria-hidden="true"></i></center></a>
       {% endif %}
     </div>
+    <!-- pop Songs -->
+{% if not query_search %}
+<header class="section-heading">
+  <h5 class="section-title">Pop Songs</h5>
+</header>
+<hr>
+{% endif %}
+<!-- Song list -->
+<div class="row">
+{% if classic_songs %}
+{% for song in pop_songs %}
+    <div class="col-md-2">
+        <div class="hovereffect">
+          <img src="{{ song.song_img.url}}" class="img-responsive" height="135" width="135" style="border-radius: 8px 8px 8px 8px;">
+          <div class="overlay">
+              <a class="btn btn-outline-light mt-5 mx-1" href="{% url 'play_song_index' song.id %}"><i class="fa fa-play" aria-hidden="true"></i></a>
+              <a class="btn btn-outline-light mt-5 mx-1" href="{% url 'detail' song.id %}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+           </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% if not query_search %}
+    <a href="{% url 'pop_songs' %}" class="btn btn-secondary float-right" style="height: 135px;"><center style="margin-top: 45px;">View all <i class="fa fa-arrow-right" aria-hidden="true"></i></center></a>
+    {% endif %}
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
 </div>
 <br>
 <br>
@@ -177,38 +209,7 @@
 <br>
 <br>
 
-<!-- pop Songs -->
-{% if not query_search %}
-  <header class="section-heading">
-    <h5 class="section-title">Pop Songs</h5>
-  </header>
-<hr>
-{% endif %}
-<!-- Song list -->
-<div class="row">
-  {% if classic_songs %}
-  {% for song in pop_songs %}
-      <div class="col-md-2">
-          <div class="hovereffect">
-            <img src="{{ song.song_img.url}}" class="img-responsive" height="135" width="135" style="border-radius: 8px 8px 8px 8px;">
-            <div class="overlay">
-                <a class="btn btn-outline-light mt-5 mx-1" href="{% url 'play_song_index' song.id %}"><i class="fa fa-play" aria-hidden="true"></i></a>
-                <a class="btn btn-outline-light mt-5 mx-1" href="{% url 'detail' song.id %}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
-             </div>
-          </div>
-      </div>
-      {% endfor %}
-      {% endif %}
-      {% if not query_search %}
-      <a href="{% url 'pop_songs' %}" class="btn btn-secondary float-right" style="height: 135px;"><center style="margin-top: 45px;">View all <i class="fa fa-arrow-right" aria-hidden="true"></i></center></a>
-      {% endif %}
-    </div>
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
+
 
 <footer class="footer">
     <div class="player" style="padding-left: 10px;padding-top:10px;background-color: 	#202020;">

@@ -14,10 +14,15 @@
       <th scope="col">Singer</th>
       <th scope="col">Song</th>
       <th scope="col">Delete</th>
+      
 
     </tr>
   </thead>
-  
+
+{% for song in songs %}
+{{songs.song_file}}
+{% endfor %}
+
 {% endblock body %}
 
 

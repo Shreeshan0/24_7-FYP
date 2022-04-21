@@ -344,8 +344,25 @@ def playlist_songs(request, playlist_name):
     return render(request, 'musicapp/playlist_songs.html', context=context)
 
 
+# def dashboard(request):
+#     return render(request, 'musicapp/dashboard.html')
+
 def dashboard(request):
-    return render(request, 'musicapp/dashboard.html')
+     profile = Profile.objects.get(user=request.user)
+    #  all= get_user_model().objects.all()
+     songs = []
+     vr = None
+    #  for u in all:
+    #     a = Profile.objects.get(user=u)
+    #     a_posts = a.posts_set.all()
+    #     songs.append(a_posts)
+     # self posts
+     my_songs = profile.user_songs()
+     songs.append(my_songs)
+     # sort
+     if len(songs)>0:
+         vr = sorted(chain(*songs), reverse=True, key=lambda obj: obj.date_posted)
+     return render(request,'musicapp/dashboard.html',{'profile':profile,'songs':vr})
 
 def mymusic(request):
     return render(request, 'musicapp/mymusic.html')
@@ -355,7 +372,7 @@ def add_music(request):
     if request.method == 'POST':
         form = AudioForm(request.POST, request.FILES or None)
         if form.is_valid():
-            # author = request.user
+            # saauthor = request.user
             form.save()
             # a = Song(form=form, author=author)
             # a.save()

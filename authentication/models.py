@@ -17,6 +17,9 @@ class Profile(models.Model):
     
     def user_posts(self):
         return self.post_set.all()
+
+    def user_songs(self):
+        return self.songs_set.all()
     
     # def save(self):
     #     super().save()

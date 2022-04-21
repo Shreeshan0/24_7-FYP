@@ -21,7 +21,7 @@ class Song(models.Model):
     song_img = models.FileField()
     year = models.IntegerField()
     singer = models.CharField(max_length=200)
-    # author = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     song_file = models.FileField()
 
     def __str__(self):
