@@ -5,15 +5,15 @@
 <h1 style="font-size: 20px; text-align: center;">Welcome to your Dashboard {{ request.user.username }} !!!!!! </h1>
 
 <br>
-<table class="table table-hover table-secondary">
+<table class="table table-hover" style="background-color: #dae0e6;">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Song Name</th>
+      <th scope="col">Song Cover</th>
+      <th scope="col">Title</th>
       <th scope="col">Album</th>
-      <th scope="col">Singer</th>
       <th scope="col">Song</th>
-      <th scope="col">Delete</th>
+      <th scope="col">Action</th>
       
 
     </tr>
@@ -21,27 +21,31 @@
   <tbody>
     {% if name %}
     {% for song in name %}
-    <tr>
+    <tr class="all" style="background-color: #dae0e6;">
      
-      <th scope="row">{{forloop.counter}}</th>
-      <td><a href="{% url 'detail' song.id %}">{{song.name}}</a></td>
+      <th scope="row text-white">{{forloop.counter}}</th>
+      <td class="pic"><img class="rounded" src="{{ song.song_img.url}}" width="70"></td>
+      <td>{{song.name}} <br>
+        <p style="font-size: 13px;">- {{song.singer}}</p>
+      </td>
       <td>{{song.album}}</td>
-      <td>{{song.singer}}</td>
+      
       <td>
         <audio controls>
           <source src="{{ song.song_file.url }}" type="audio/mpeg">
         </audio>
       </td>
-      <td>
+      <td class="d-flex">
+        
         <form action="{% url 'update_music' song.id %}" method="post">
           {% csrf_token %}
-          <input class="btn btn-primary" type="submit" value="update" name={{song.id}}>
+          <input class="btn btn-secondary mx-2" type="submit" value="update" name={{song.id}}>
         </form>
         <form action="{% url 'delete_music' song.id %}" method="post">
           {% csrf_token %}
-          <input class="btn btn-primary" type="submit" value="Remove" name={{song.id}}>
+          <input class="btn btn-secondary mx-3" type="submit" value="Remove" name={{song.id}}>
         </form>
-        
+      
       </td>
     </tr>
     {% endfor %}

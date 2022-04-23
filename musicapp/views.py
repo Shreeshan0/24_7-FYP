@@ -413,9 +413,20 @@ def favourite(request):
 
 def main(request):
     context = {
-        'posts': Post.objects.all()
+        'posts': Post.objects.all()  
     }
     return render(request, 'socials/main.html', context)
+
+
+
+def profile(request):
+     profile = Profile.objects.get(user=request.user)
+     posts = []
+     aa = None
+     # self posts
+     profilepost = profile.user_posts()
+     posts.append(profilepost)
+     return render(request,'authentication/socials/profile.html',{'profile':profile,'posts':aa})
 
 
 

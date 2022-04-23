@@ -3,49 +3,27 @@
 {% load crispy_forms_tags %}
 {% block body %}
 
-    <!-- <div class="container mt-3 mb-2 p-3 border" style="background-color: azure;">
-        <div class="media p-3" style="background-color: rgb(225, 238, 238);"> 
-           <img class="rounded-circle account-img"  src="{{ user.profile.image.url }}">
-                <div class="media-body">
-                    <h2 class="account-heading"> {{ user.username }}</h2>
-                    <p class="text-secondary"> {{ user.email }}</p>    
-                </div>
-            </div>
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <fieldset class="form-group">
-                    <legend class="border-bottom mb-4"> Profile Info</legend>
-                {{ u_form | crispy }}
-                {{ p_form | crispy }}
-                </fieldset>
-                <div class="form-group">
-                <button class="btn btn-success btn-block" type="submit" style="width: 100px;">Update</button>
-                </div>
-              </form>
-         <a href=> </a>
-         <p>If you want to change your password click the link <a href="{% url 'password_change' %}">Password Change.</a></p>
-     </div> -->
     
-     <div class="row py-5 px-4" style="background-color: aliceblue;">
+     <div class="row py-5 px-4" style="background-color: rgb(171, 220, 196);">
         <div class="col-md-5 mx-auto">
             <!-- Profile widget -->
             <div class="bg-white shadow rounded overflow-hidden">
-                <div class="px-4 pt-3 pb-2 cover" style="background-color: rgb(178, 168, 168);">
+                <div class="px-4 pt-3 pb-2 cover text-white" style="background-color: black;">
                     <div class="media align-items-end profile-head">
-                        <div class="profile mr-3"><img src="{{ user.profile.image.url }}" alt="..." width="130" class="rounded mb-2 img-thumbnail"></div>
+                        <div class="profile mr-3"><img src="{{ user.profile.image.url }}" alt="..." width="130" class="rounded-circle mb-2 img-thumbnail"></div>
                         <div class="media-body mb-5">
                             <h4 class="mt-0 mb-0">{{ user.username }}</h4>
-                            <p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i> {{ user.email }}</p>
+                            <p class="small mb-4"> <i class="fas fa-map-marker-alt"></i> {{ user.email }}</p>
                         </div>
                     </div>
                 </div>
              
                 <div class="px-4 py-3">
                     
-                    <div class="p-4 rounded shadow-sm bg-light">
+                    <div class="p-4 rounded">
                         <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}
-                            <fieldset class="form-group">
+                            <fieldset class="form-group pt-3 pb-">
                                 <legend class="border-bottom mb-4"> Profile Info</legend>
                             {{ u_form | crispy }}
                             {{ p_form | crispy }}
@@ -64,5 +42,37 @@
         </div>
     </div>
  
+  
+       
+            <div class="container">
+                <p style="font-size: 50px;">Yor Posts</p>
+                <hr>
+            <div class="row">
+                {% for post in posts %}
+                <div class="col-lg-4">
+                <div class="card" >
+                    <a href="{% url 'postDetail' post.pk %}">
+                    <img
+                    src="{{ post.image.url }}"
+                    class="card-img-top"
+                    alt="Waterfall"
+                    
+                    />
+                    </a>
+                    <div class="card-body" ">
+                    
+                    <p class="card-text">
+                        <p>{{ post.detail }}</p>
+                    </p>
+                   
+                    </div>
+                </div>
+                </div>
+                {% endfor %}    
+            </div>
+            </div>
+  
+    
+   
 
 {% endblock body %}

@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% load socialaccount %}
+{% load static %}
 {% block title %} Favourites {% endblock title %}
 
 {% block body %}
-<br>
+
 
 {% if messages %}
 <ul class="messages" style="width: 600px;margin-left:400px">
@@ -17,20 +18,30 @@
   {% endfor %}
 </ul>
 {% endif %}
-<br>
-<br>
+ 
 
-<center>
-  <h3>Favourites</h3>
-</center>
 
-<table class="table table-hover table-secondary">
+<div class="px-4 pt-3 pb-2 cover text-white" style="background-color: #95AFBA;">
+  <div class="media align-items-end profile-head">
+      <div class="profile mr-3"><img src="{% static 'musicapp/images/fav.jpg' %}" alt="..." class="img-thumbnail" width="300px"></div>
+      
+        <p style="font-size: 90px;">Liked Songs</p>
+          
+      
+  </div>
+</div>
+
+
+
+
+<table class="table table-hover" style="background-color: #dae0e6;">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Song Name</th>
+      <th scope="col">Song cover</th>
+      <th scope="col">Title</th>
       <th scope="col">Album</th>
-      <th scope="col">Singer</th>
+      
       <th scope="col">Song</th>
       <th scope="col">Delete</th>
 
@@ -39,11 +50,12 @@
   <tbody>
     {% if songs %}
     {% for song in songs %}
-    <tr>
+    <tr class="all" style="background-color: #dae0e6;">
       <th scope="row">{{forloop.counter}}</th>
-      <td><a href="{% url 'detail' song.id %}">{{song.name}}</a></td>
+      <td class="pic"><img class="rounded" src="{{ song.song_img.url}}" width="70"></td>
+      <td>{{song.name}} <br> <p style="font-size: 14px;">- {{song.singer}}</p></td>
       <td>{{song.album}}</td>
-      <td>{{song.singer}}</td>
+      <!-- <td>{{song.singer}}</td> -->
       <td>
         <audio controls>
           <source src="{{ song.song_file.url }}" type="audio/mpeg">
@@ -52,7 +64,7 @@
       <td>
         <form method="post">
           {% csrf_token %}
-          <input class="btn btn-primary" type="submit" value="Remove" name={{song.id}}>
+          <input class="btn btn-secondary" type="submit" value="Remove" name={{song.id}}>
         </form>
       </td>
     </tr>
@@ -60,6 +72,7 @@
     {% endif %}
   </tbody>
 </table>
+
 
 
 {% endblock body %}

@@ -2,7 +2,9 @@
 .nav-item{
   color: #F9F9F9;
 }
-
+.cover{
+  background-image: url("musicapp/images/vinyl1.jpg");
+}
   body .player {
     z-index: 10;
     background: #F9F9F9;

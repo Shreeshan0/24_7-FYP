@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import UserLoginForm, RegistrationForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .models import Profile
 
 
 
@@ -11,6 +12,8 @@ from django.contrib import messages
 def login_request(request):
     title = "Login"
     form = UserLoginForm(request.POST or None)
+    if request.user.is_authenticated:
+        return redirect('index')
     context = {
         'form': form,
         'title': title,
@@ -45,11 +48,13 @@ def signup_request(request):
 
 def logout_request(request):
     logout(request)
-    # messages.info(request, "Logged out successfully!")
+    
     return redirect('index')
 
 @login_required
 def profile(request):
+    profile = Profile.objects.get(user=request.user)
+   
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,
@@ -67,7 +72,8 @@ def profile(request):
 
     context = {
         'u_form': u_form,
-        'p_form': p_form
+        'p_form': p_form,
+        'posts': profile.user_posts()
     }
 
     return render(request, 'socials/profile.html', context)
