@@ -2,9 +2,17 @@
 {% load static %}
 
 {% block body %}
-<h1 style="font-size: 20px; text-align: center;">Welcome to your Dashboard {{ request.user.username }} !!!!!! </h1>
 
-<br>
+
+<div class="px-4 pt-3 pb-3 cover text-white" style="background-color: #95AFBA;">
+  <div class="media align-items-end profile-head">
+      <div class="profile mr-3"><img src="{% static 'musicapp/images/dash.png' %}" alt="..." class="img-thumbnail" width="200px"></div>
+      
+        <p style="font-size: 90px;">Your Songs</p>
+          
+  </div>
+</div>
+
 <table class="table table-hover" style="background-color: #dae0e6;">
   <thead>
     <tr>

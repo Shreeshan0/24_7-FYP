@@ -29,7 +29,7 @@
 <hr>
 {% endif %}
 
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+<!-- <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   
   <div class="carousel-inner">
     <div class="carousel-item active">
@@ -50,7 +50,7 @@
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
-</div>
+</div> -->
 
 <!-- Recent Song -->
 {% if recent_songs %}
@@ -71,6 +71,8 @@
                 <a class="btn btn-outline-light mt-5 mx-1" href="{% url 'detail' song.id %}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
              </div>
           </div>
+          <p style="font-size: 15px;">{{song.name}}</p>
+          <p style="font-size: 13px;">- {{song.singer}}</p>
       </div>
       {% endfor %}
       <a href="{% url 'recent' %}" class="btn btn-secondary float-right" style="height: 135px;"><center style="margin-top: 45px;">View all <i class="fa fa-arrow-right" aria-hidden="true"></i></center></a>
@@ -87,24 +89,27 @@
 {% if not query_search %}
 
   <header class="section-heading">
-    <!-- <a href="{% url 'all_songs' %}" class="btn btn-primary float-right">View all</a> -->
     <h5 class="section-title">ALL SONGS</h5>
   </header>
 <hr>
 {% endif %}
 <!-- Song list -->
-<div class="row" style="margin-right: 65px;margin-left:-15px">
+<div class="row"  style="margin-right: 65px;margin-left:-15px">
   {% if all_songs %}
   {% for song in all_songs %}
-      <div class="col-md-2">
-          <div class="hovereffect">
-            <img src="{{ song.song_img.url}}" class="img-responsive" height="135" width="135" style="border-radius: 8px 8px 8px 8px;">
+ 
+
+        <div class="col-md-2">
+          <div class="hovereffect ">
+            <img src="{{ song.song_img.url}}" class="img-responsive" height="120" width="120" style="border-radius: 8px 8px 8px 8px;">
             <div class="overlay">
                 <a class="btn btn-outline-light mt-5 mx-1" href="{% url 'play_song_index' song.id %}"><i class="fa fa-play" aria-hidden="true"></i></a>
                 <a class="btn btn-outline-light mt-5 mx-1" href="{% url 'detail' song.id %}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
              </div>
+             </div>
+             <p style="font-size: 15px;">{{song.name}}</p>
+          <p style="font-size: 13px;">- {{song.singer}}</p>
           </div>
-      </div>
       {% endfor %}
       {% endif %}
       {% if not query_search %}
@@ -114,11 +119,41 @@
 <br>
 <br>
 
+<!-- pop Songs -->
+{% if not query_search %}
+<header class="section-heading">
+  <h5 class="section-title mt-3">Pop Songs</h5>
+</header>
+<hr>
+{% endif %}
+<!-- Song list -->
+<div class="row">
+{% if pop_songs %}
+{% for song in pop_songs %}
+    <div class="col-md-2">
+        <div class="hovereffect">
+          <img src="{{ song.song_img.url}}" class="img-responsive" height="135" width="135" style="border-radius: 8px 8px 8px 8px;">
+          <div class="overlay">
+              <a class="btn btn-outline-light mt-5 mx-1" href="{% url 'play_song_index' song.id %}"><i class="fa fa-play" aria-hidden="true"></i></a>
+              <a class="btn btn-outline-light mt-5 mx-1" href="{% url 'detail' song.id %}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+           </div>
+        </div>
+        <p style="font-size: 15px;">{{song.name}}</p>
+        <p style="font-size: 13px;">- {{song.singer}}</p>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% if not query_search %}
+    <a href="{% url 'pop_songs' %}" class="btn btn-secondary float-right" style="height: 135px;"><center style="margin-top: 45px;">View all <i class="fa fa-arrow-right" aria-hidden="true"></i></center></a>
+    {% endif %}
+  </div>
+
+
 
 <!-- Hip hop Songs -->
 {% if not query_search %}
   <header class="section-heading">
-    <h5 class="section-title">Hiphop SONGS</h5>
+    <h5 class="section-title mt-3">Hiphop SONGS</h5>
   </header>
 <hr>
 {% endif %}
@@ -134,6 +169,8 @@
                 <a class="btn btn-outline-light mt-5 mx-1" href="{% url 'detail' song.id %}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
              </div>
           </div>
+          <p style="font-size: 15px;">{{song.name}}</p>
+          <p style="font-size: 13px;">- {{song.singer}}</p>
       </div>
       {% endfor %}
       {% endif %}
@@ -143,6 +180,7 @@
 </div>
 <br>
 <br>
+
 
 <!-- classic Songs -->
 {% if not query_search %}
@@ -163,6 +201,8 @@
                 <a class="btn btn-outline-light mt-5 mx-1" href="{% url 'detail' song.id %}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
              </div>
           </div>
+          <p style="font-size: 15px;">{{song.name}}</p>
+          <p style="font-size: 13px;">- {{song.singer}}</p>
       </div>
       {% endfor %}
       {% endif %}
@@ -170,17 +210,20 @@
       <a href="{% url 'classic_songs' %}" class="btn btn-secondary float-right" style="height: 135px;"><center style="margin-top: 45px;">View all <i class="fa fa-arrow-right" aria-hidden="true"></i></center></a>
       {% endif %}
     </div>
-    <!-- pop Songs -->
+
+
+    
+<!-- Hip hop Songs -->
 {% if not query_search %}
 <header class="section-heading">
-  <h5 class="section-title">Pop Songs</h5>
+  <h5 class="section-title mt-3">Rock Songs</h5>
 </header>
 <hr>
 {% endif %}
 <!-- Song list -->
-<div class="row">
-{% if classic_songs %}
-{% for song in pop_songs %}
+<div class="row" style="margin-right: 65px;margin-left:-15px">
+{% if rock_songs %}
+{% for song in rock_songs %}
     <div class="col-md-2">
         <div class="hovereffect">
           <img src="{{ song.song_img.url}}" class="img-responsive" height="135" width="135" style="border-radius: 8px 8px 8px 8px;">
@@ -189,13 +232,20 @@
               <a class="btn btn-outline-light mt-5 mx-1" href="{% url 'detail' song.id %}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
            </div>
         </div>
+        <p style="font-size: 15px;">{{song.name}}</p>
+        <p style="font-size: 13px;">- {{song.singer}}</p>
     </div>
     {% endfor %}
     {% endif %}
     {% if not query_search %}
-    <a href="{% url 'pop_songs' %}" class="btn btn-secondary float-right" style="height: 135px;"><center style="margin-top: 45px;">View all <i class="fa fa-arrow-right" aria-hidden="true"></i></center></a>
+    <a href="{% url 'rock_songs' %}" class="btn btn-secondary float-right" style="height: 135px;"><center style="margin-top: 45px;">View all <i class="fa fa-arrow-right" aria-hidden="true"></i></center></a>
     {% endif %}
-  </div>
+</div>
+<br>
+<br>
+
+
+
 </div>
 <br>
 <br>
@@ -204,15 +254,12 @@
 <br>
 </div>
 <br>
-<br>
-<br>
-<br>
-<br>
+
 
 
 
 <footer class="footer">
-    <div class="player" style="padding-left: 10px;padding-top:10px;background-color: 	#202020;">
+    <div class="player" style="padding-left: 10px;padding-top:10px;background-color: 	#425060;">
       <div class="left"><img src="{{last_played.song_img.url}}" height="90" width="90" style="border-radius: 10px 10px 10px 10px;"></div>
       <div class="right">
          <div class="top">
@@ -221,9 +268,9 @@
          </div>
          <div class="bottom">
           {% if first_time %}
-            <audio controls=""  name="media" style="margin-left: 20px;margin-bottom: 10px;width: 95%;height:30px"><source src="{{last_played.song_file.url}}" type="audio/mpeg" ></audio>
+            <audio controls controlsList="nodownload" name="media" style="margin-left: 20px;margin-bottom: 10px;width: 95%;height:30px"><source src="{{last_played.song_file.url}}" type="audio/mpeg" ></audio>
               {% else %}
-              <audio controls="" name="media" style="margin-left: 20px;margin-bottom: 10px;width: 95%;height:30px"><source src="{{last_played.song_file.url}}" type="audio/mpeg" ></audio>
+              <audio controls controlsList="nodownload" name="media" style="margin-left: 20px;margin-bottom: 10px;width: 95%;height:30px"><source src="{{last_played.song_file.url}}" type="audio/mpeg" ></audio>
               {% endif %}
           </div>
       </div>

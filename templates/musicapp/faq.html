@@ -2,40 +2,123 @@
 {% load static %} 
 {% block body %}
 
-
-  <section class="page-section pt-4 pb-4 mb-4 bg-light" id="services">
-    <div class="container">
-        <div class="text-center">
-            <h2 class="section-heading text-uppercase">Why 24/7 Music.</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-        </div>
-        <div class="row text-center">
-            <div class="col-md-4">
-                <span class="fa-stack fa-4x">
-                  <img src="{% static 'musicapp/images/play-button.png' %}" class="card-img-top" alt="card" style="width: 100px;">
-                </span>
-                <h4 class="my-3">Play you faviorites.</h4>
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-            </div>
-            <div class="col-md-4">
-                <span class="fa-stack fa-4x">
-                  <img src="{% static 'musicapp/images/social-media.png' %}" class="card-img-top" alt="card" style="width: 100px;">
-                </span>
-                <h4 class="my-3">Post you thoughts.</h4>
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-            </div>
-            <div class="col-md-4">
-                <span class="fa-stack fa-4x">
-                  <img src="{% static 'musicapp/images/headphone.png' %}" class="card-img-top" alt="card" style="width: 100px;">
-                </span>
-                <h4 class="my-3">Listen wherever whenever.</h4>
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+<div class='container-fluid mx-auto mt-3 col-12' style="text-align: center">
+    <div class="hd mb-2">Services we Provide</div>
+    <div class="row" style="justify-content: center">
+        <div class="card col-md-3 col-12" id="faq">
+            <div class="card-content">
+                <div class="card-body"> <img class="img" src="{% static 'musicapp/images/headphone.png' %}"  width="150px"/>
+                    <div class="shadow"></div>
+                    <div class="card-title p-2"> Post you thoughts. </div>
+                    <div class="card-subtitle">
+                        <p> <small class="text-muted">We spent thousands of hours creating on algorithm that does this for you in seconds. We collect a small fee from the professional after they meet your</small> </p>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="card col-md-3 col-12 ml-2" id="faq">
+            <div class="card-content">
+                <div class="card-body"> <img class="img" src="{% static 'musicapp/images/play-button.png' %}"  width="150px"/> 
+                    <div class="card-title p-2"> Play you faviorites. </div>
+                    <div class="card-subtitle">
+                        <p> <small class="text-muted"> We don't accept ads from anyone. We use actual data to match you who the best person for each job </small> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card col-md-3 col-12 ml-2" id="faq">
+            <div class="card-content">
+                <div class="card-body"> <img class="img rck" src="{% static 'musicapp/images/social-media.png' %}"  width="150px"/>
+                    <div class="card-title p-2"> Listen wherever whenever. </div>
+                    <div class="card-subtitle">
+                        <p> <small class="text-muted">Buying or selling a home is often the largest transaction anyone does in their life. we guide you through the process so that you can be confident in reaching your dream outcome.</small> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+     
     </div>
-</section>
+</div>
 
-<div class="container py-3">
+<div class="col-sm-9 accordion_one mx-auto">
+    
+    <div class="panel-group" id="accordionFourLeft">
+        <h3>Frequntly asked Questions</h3> <hr>
+        <div class="panel panel-default">
+           
+            <div class="panel-heading">
+                
+                <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion_oneLeft" href="#collapseFiveLeftone" aria-expanded="false" class="collapsed"> Why Font Awesome used </a> </h4>
+            </div>
+            <div id="collapseFiveLeftone" class="panel-collapse collapse" aria-expanded="false" role="tablist" style="height: 0px;">
+                <div class="panel-body">
+                    <div class="img-accordion"> <img src="https://img.icons8.com/color/81/000000/person-female.png" alt=""> </div>
+                    <div class="text-accordion">
+                        <p> Why Font Awesome usedWhy Font Awesome usedWhy Font Awesome usedWhy Font Awesome usedWhy Font Awesome usedWhy Font Awesome usedWhy Font Awesome usedWhy Font Awesome usedWhy Font Awesome usedWhy Font Awesome usedWhy Font Awesome usedWhy Font Awesome usedWhy Font Awesome used </p>
+                    </div>
+                </div> <!-- end of panel-body -->
+            </div>
+        </div> <!-- /.panel-default -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title"> <a class="collapsed" data-toggle="collapse" data-parent="#accordion_oneLeft" href="#collapseFiveLeftTwo" aria-expanded="false"> Why Font Awesome used and its benefits </a> </h4>
+            </div>
+            <div id="collapseFiveLeftTwo" class="panel-collapse collapse" aria-expanded="false" role="tablist" style="height: 0px;">
+                <div class="panel-body">
+                    <div class="img-accordion"> <img src="https://img.icons8.com/color/81/000000/person-female.png" alt=""> </div>
+                    <div class="text-accordion">
+                        <p> Why Font Awesome usedWhy Font Awesome usedWhy Font Awesome usedWhy Font Awesome usedWhy Font Awesome usedWhy Font Awesome usedWhy Font Awesome usedWhy Font Awesome usedWhy Font Awesome used </p>
+                    </div>
+                </div> <!-- end of panel-body -->
+            </div>
+        </div> <!-- /.panel-default -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title"> <a class="collapsed" data-toggle="collapse" data-parent="#accordion_oneLeft" href="#collapseFiveLeftThree" aria-expanded="false"> Why Font Awesome used for its own </a> </h4>
+            </div>
+            <div id="collapseFiveLeftThree" class="panel-collapse collapse" aria-expanded="false" role="tablist">
+                <div class="panel-body">
+                    <div class="img-accordion"> <img src="https://img.icons8.com/color/81/000000/person-female.png" alt=""> </div>
+                    <div class="text-accordion">
+                        <p> Why Font Awesome used for its own Why Font Awesome used for its own Why Font Awesome used for its own Why Font Awesome used for its own Why Font Awesome used for its own Why Font Awesome used for its own Why Font Awesome used for its own </p>
+                    </div>
+                </div> <!-- end of panel-body -->
+            </div>
+        </div> <!-- /.panel-default -->
+    </div>
+    <!--end of /.panel-group-->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="container py-3">
     <div class="row">
         <div class="col-10 mx-auto">
             <div class="accordion" id="faqExample">
@@ -99,50 +182,10 @@
             </div>
 
         </div>
-    </div>
-    <!--/row-->
-</div>
+    </div> -->
+ 
+<!-- </div> -->
 
-  <!-- <h1 class="text-center m-3 mb-5">Got Questions?</h1>
-  <div class="container-sm mb-lg-5">
-      <div class="accordion" id="accordion">
-          <div class="accordion-item">
-              <h2 class="accordion-header text-dark bg-light" id="one">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-one" aria-expanded="true" aria-controls="collapse-one">
-              Question 1
-              </button>
-              </h2>
-              <div id="collapse-one" class="accordion-collapse collapse show" aria-labelledby="one" data-bs-parent="#accordion">
-                  <div class="accordion-body">
-                      <p>............24/7 Music........</p>
-                  </div>
-              </div>
-          </div>
-          <div class="accordion-item">
-              <h2 class="accordion-header" id="two">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-two" aria-expanded="false" aria-controls="collapse-two">
-              Question 2
-              </button>
-              </h2>
-              <div id="collapse-two" class="accordion-collapse collapse" aria-labelledby="two" data-bs-parent="#accordion">
-                  <div class="accordion-body">
-                      <p>............24/7 Music........</p>
-                  </div>
-              </div>
-          </div>
-          <div class="accordion-item">
-              <h2 class="accordion-header" id="three">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-three" aria-expanded="false" aria-controls="collapse-three">
-              question 3
-              </button>
-              </h2>
-              <div id="collapse-three" class="accordion-collapse collapse" aria-labelledby="three" data-bs-parent="#accordion">
-                  <div class="accordion-body">
-                      <p>............24/7 Music........</p>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div> -->
+ 
 
   {% endblock body %}

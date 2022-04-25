@@ -3,7 +3,7 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
-from musicapp.views import likes
+
 
 # Add URLConf
 urlpatterns = [
@@ -18,6 +18,7 @@ urlpatterns = [
     path('hiphop_songs/', views.hiphop_songs, name='hiphop_songs'),
     path('classic_songs/', views.classic_songs, name='classic_songs'),
     path('pop_songs/', views.pop_songs, name='pop_songs'),
+    path('rock_songs/', views.rock_songs, name='rock_songs'),
     path('play/<int:song_id>/', views.play_song, name='play_song'),
     path('play_song/<int:song_id>/', views.play_song_index, name='play_song_index'),
     path('play_recent_song/<int:song_id>/', views.play_recent_song, name='play_recent_song'),
@@ -27,7 +28,6 @@ urlpatterns = [
 
     path('faq/', views.faq, name='faq'),
     path('dashboard/', views.dashboard, name='dashboard'),
-    # path('post_profile/', views.post_profile, name='post_profile'),
     #password Change
     
     path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
@@ -45,7 +45,7 @@ urlpatterns = [
     path('post/<int:pk>/', views.PostDetail.as_view(), name = "postDetail"),
     path('post/<int:pk>/update', views.PostUpdateView.as_view(), name = "postUpdate"),
     path('post/<int:pk>/delete', views.PostDeleteView.as_view(), name = "postDelete"),
-    path('likes/', likes, name='likes'),
+    path('liked/', views.like_unlike_post, name='like-post-view'),
 
     #search filter
     path('filter/', views.filter, name='filter'),

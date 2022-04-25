@@ -14,6 +14,7 @@ from itertools import chain
 from django.contrib.auth import get_user_model
 from django.template.loader import render_to_string
 from django.http import JsonResponse
+from .models import Like
 
 
 
@@ -70,6 +71,11 @@ def index(request):
     sliced_ids = [each['id'] for each in songs_pop][:5]
     indexpage_pop_songs = Song.objects.filter(id__in=sliced_ids)
 
+    # Display rock Songs
+    songs_rock = list(Song.objects.filter(genre='Rock').values('id'))
+    sliced_ids = [each['id'] for each in songs_rock][:5]
+    indexpage_rock_songs = Song.objects.filter(id__in=sliced_ids)
+
     if len(request.GET) > 0:
         search_query = request.GET.get('q')
         filtered_songs = songs.filter(Q(name__icontains=search_query)).distinct()
@@ -82,6 +88,7 @@ def index(request):
         'hiphop_songs':indexpage_hiphop_songs,
         'classic_songs':indexpage_classic_songs,
         'pop_songs':indexpage_pop_songs,
+        'rock_songs':indexpage_rock_songs,
         'last_played':last_played_song,
         'first_time': first_time,
         'query_search':False,
@@ -155,6 +162,28 @@ def pop_songs(request):
 
     context = {'pop_songs':pop_songs,'last_played':last_played_song}
     return render(request, 'musicapp/pop_songs.html',context=context)
+
+def rock_songs(request):
+
+    rock_songs = Song.objects.filter(genre='Rock')
+
+    #Last played song
+    last_played_list = list(Recent.objects.values('song_id').order_by('-id'))
+    if last_played_list:
+        last_played_id = last_played_list[0]['song_id']
+        last_played_song = Song.objects.get(id=last_played_id)
+    else:
+        last_played_song = Song.objects.get(id=1)
+
+    query = request.GET.get('q')
+
+    if query:
+        rock_songs = Song.objects.filter(Q(name__icontains=query)).distinct()
+        context = {'rock_songs': rock_songs}
+        return render(request, 'musicapp/rock_songs.html', context)
+
+    context = {'rock_songs':rock_songs,'last_played':last_played_song}
+    return render(request, 'musicapp/rock_songs.html',context=context)
 
 def faq(request):
     return render(request, 'musicapp/faq.html')
@@ -438,12 +467,15 @@ class PostListView(ListView):
 
 class PostDetail(DetailView):
     model=Post
-    # template_name = 'musicapp/post_detail.html' 
+    # template_name = 'musicapp/post_detail.html
+    # 
+    # ' 
 
 class PostUpload(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['image','detail']
 
+    
     def form_valid(self,form):
         form.instance.owner = self.request.user.profile
         return super().form_valid(form)
@@ -464,30 +496,45 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
-    success_url = 'socials/main.html'
+    success_url = '/main'
     def test_func(self):
         post = self.get_object()
         if self.request.user.profile == post.owner:
             return True
         return False
 
-def likes(request):
-    post = get_object_or_404(Post, id=request.POST.get('post_id'))
-    is_liked = False
-    if post.likes.filter(id=request.user.id).exists():
-        post.likes.remove(request.user)
-        is_liked = False
-    else:
-        post.likes.add(request.user)
-        is_liked = True
-    context ={
-        'post': post,
-        'is_liked': is_liked,
-        'total_likes': post.likes.count(),
+@login_required
+def like_unlike_post(request):
+    user = request.user
+    if request.method == 'POST':
+        post_id = request.POST.get('post_id')
+        post_obj = Post.objects.get(id=post_id)
+        profile = Profile.objects.get(user=user)
+
+        if profile in post_obj.likes.all():
+            post_obj.likes.remove(profile)
+        else:
+            post_obj.likes.add(profile)
+
+        like, created = Like.objects.get_or_create(user=profile, post_id=post_id)
+
+        if not created:
+            if like.value=='Like':
+                like.value='Unlike'
+            else:
+                like.value='Like'
+        else:
+            like.value='Like'
+
+            post_obj.save()
+            like.save()
+            
+    context = {
+        'bool':True
     }
-    if request.is_ajax():
-        html = render_to_string('like_section.html', context, request=request)
-        return JsonResponse({'form': html})
+
+    return JsonResponse(context)
+
     
     
 
