@@ -1,4 +1,6 @@
 from http.client import HTTPResponse
+from multiprocessing import context
+
 from urllib import response
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
@@ -15,6 +17,8 @@ from django.contrib.auth import get_user_model
 from django.template.loader import render_to_string
 from django.http import JsonResponse
 from .models import Like
+from .forms import CommentForm
+
 
 
 
@@ -442,7 +446,7 @@ def favourite(request):
 
 def main(request):
     context = {
-        'posts': Post.objects.all()  
+        'posts': Post.objects.all().order_by('-date_posted')
     }
     return render(request, 'socials/main.html', context)
 
@@ -465,11 +469,33 @@ class PostListView(ListView):
     context_object_name = 'posts'
     ordering = ['-date_posted']
 
+
 class PostDetail(DetailView):
     model=Post
-    # template_name = 'musicapp/post_detail.html
-    # 
-    # ' 
+    form = CommentForm
+
+    def post(self, request, *args, **kwargs):
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            post = self.get_object()
+            form.instance.user = request.user
+            form.instance.post = post
+            form.save()
+
+            return redirect(reverse("postDetail",kwargs={
+                "pk": post.pk
+            }))
+
+    
+    def get_context_data(self, **kwargs):
+        post_comments = Comment.objects.all().filter(post=self.object.id)
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'form':self.form,
+            'comments' : post_comments,
+        })
+        return context
+
 
 class PostUpload(LoginRequiredMixin, CreateView):
     model = Post

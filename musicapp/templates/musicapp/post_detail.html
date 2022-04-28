@@ -33,7 +33,27 @@
                   
                     <div class="feed-image p-2 px-3"><img class="img-fluid img-responsive" src="{{ post.image.url }}"></div>
                    
+                    <div class="section">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-8 mx-auto">
+                                    
+                                    <form action="" method="Post">
+                                        {% csrf_token %}
+                                        <div class="form-group">
 
+                                            {{ form | crispy }}
+                                        </div>
+                                        <button class="btn btn-secondary" type="submit">Comment</button>
+                                    </form>
+                                    {% for comment in comments %}
+                                    <p>{{comment.user}}</p>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
     
                     
                 </div>

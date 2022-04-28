@@ -1,9 +1,12 @@
+from tkinter import CASCADE
 from django.db import models
 from django.contrib.auth.models import User
+from requests import post
 from authentication.models import Profile
 from django.utils import timezone
 from django.urls import reverse
 from .models import *
+# from musicapp.validators import validate_is_audio
 
 
 # Create your models here.
@@ -81,4 +84,14 @@ class Like(models.Model):
     
     def __str__(self):
         return f"{self.user}-{self.post}-{self.value}"
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
+    post = models.ForeignKey('Post', on_delete=models.CASCADE)
+    content = models.TextField()
+
+    def __str__(self):
+        return self.user.username
+    
 

@@ -9,6 +9,7 @@ admin.site.register(Playlist)
 admin.site.register(Favourite)
 admin.site.register(Recent)
 admin.site.register(Post)
+admin.site.register(Comment)
 
 
 
