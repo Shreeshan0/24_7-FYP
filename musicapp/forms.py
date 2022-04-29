@@ -16,7 +16,9 @@ class AudioForm(forms.ModelForm):
 
 class CommentForm(forms.ModelForm):
     content = forms.CharField(widget=forms.Textarea(attrs={
-        'rows': '4',
+        'class':'md-textarea form-control',
+        'palceholder': 'comment here....',
+        'rows': '3',
     }))
 
     class Meta:

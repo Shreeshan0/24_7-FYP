@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 from . import views
 
 
-# Add URLConf
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('<int:song_id>/', views.detail, name='detail'),
@@ -46,6 +46,7 @@ urlpatterns = [
     path('post/<int:pk>/update', views.PostUpdateView.as_view(), name = "postUpdate"),
     path('post/<int:pk>/delete', views.PostDeleteView.as_view(), name = "postDelete"),
     path('liked/', views.like_unlike_post, name='like-post-view'),
+    path('del_comment/<int:pk>', views.del_comment, name='del_comment'),
 
     #search filter
     path('filter/', views.filter, name='filter'),

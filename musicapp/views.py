@@ -388,11 +388,11 @@ def dashboard(request):
     return render(request, 'musicapp/dashboard.html',context)
 
 
-
+@login_required(login_url='login')
 def mymusic(request):
     return render(request, 'musicapp/mymusic.html')
 
-
+@login_required(login_url='login')
 def add_music(request):
     
     if request.method == 'POST':
@@ -412,6 +412,7 @@ def add_music(request):
         form = AudioForm()
     return render(request, 'musicapp/music_add.html', {'form':form})
 
+@login_required(login_url='login')
 def update_music(request, pk):
     song = Song.objects.get(id=pk)
     form = AudioForm(instance=song)
@@ -422,6 +423,7 @@ def update_music(request, pk):
             return redirect('dashboard')
     return render(request, 'musicapp/music_add.html', {'form':form})
 
+@login_required(login_url='login')
 def delete_music(request, pk):
     song = Song.objects.get(id=pk)
     song.delete()
@@ -488,14 +490,20 @@ class PostDetail(DetailView):
 
     
     def get_context_data(self, **kwargs):
+        post_comments_count = Comment.objects.all().filter(post=self.object.id).count()
         post_comments = Comment.objects.all().filter(post=self.object.id)
         context = super().get_context_data(**kwargs)
         context.update({
             'form':self.form,
-            'comments' : post_comments,
+            'post_comments' : post_comments,
+            'post_comments_count' : post_comments_count,
         })
         return context
 
+def del_comment(request, pk):
+    comment = Comment.objects.get(id=pk)
+    comment.delete()
+    return redirect('main')
 
 class PostUpload(LoginRequiredMixin, CreateView):
     model = Post

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django import forms
 from django.contrib.auth import authenticate
 from .models import Profile
+from authentication.validators import validate_email
 
 
 
@@ -27,7 +28,7 @@ class UserLoginForm(forms.Form):
 
 class RegistrationForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}))
-    email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email'}))
+    email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email'}),validators = [validate_email])
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'placeholder': 'Enter Password'}))
     password2 = forms.CharField(
         label='Password confirmation',
